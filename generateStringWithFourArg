@@ -1,0 +1,46 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+extern char* generateString(char* s, int c, int n, int inc);
+
+int main(void){
+    int n = 5;
+    char * buffer = malloc(sizeof(char)*n);
+    int c = 65;
+    printf("String is: %s \n", generateString(buffer,c,n,1));
+    free(buffer);
+    return 0;
+}
+
+.type generateString, @function
+.global generateString
+
+generateString:
+    # 1 argument w  rdi
+    # 2 w rsi
+    # 3 w rdx uzywamy %dl
+    # 4 w rcx
+    
+    mov %rsi, %rax
+    mov %rdx, %rsi
+    mov %rax, %rdx # teraz mamy w 1. bufor w 2. rozmiar w 3 znak i w 4 inc
+    mov %rdi, %rax
+    
+    cmp $0, %rcx
+    je next #jak nie jest 0 to ustawiamy na jedynke zeby dodawac
+    mov $1, %rcx
+    
+next:
+    cmp $0, %rsi
+    je f_e
+    
+incIsGood:
+    mov %dl, (%rdi)
+    inc %rdi
+    add %rcx,%rdx
+    dec %rsi
+    jmp next
+
+f_e:
+    movb $0, (%rdi)
+    ret
