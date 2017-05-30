@@ -1,0 +1,43 @@
+#include<stdio.h>
+char* createStrc(char* buf, unsigned int n, char c){
+    int i;
+    for (i = 0; i < n; i++){
+        buf[i] = c + i;
+    }
+    return buf;
+}
+
+char* createStra(char* buf, unsigned int n, char c);
+
+void main(void){
+    int i;
+    char buf[100];
+    printf( "createStrC(%d) = %s cretaeStrA = %s\n", 5, createStrc(buf,5,'a'), createStra(buf,5,'a') );
+}
+
+    .type createStra, @function
+    .global createStra
+
+    # 1 argument w  rdi
+    # 2 w rsi
+    # 3 w rdx uzywamy %dl
+
+createStra:
+
+    mov %rdi, %rax
+
+next:
+
+    cmp $0, %rsi
+    je f_e
+
+    mov %dl, (%rdi)
+    inc %rdi
+    inc %dl
+    dec %rsi
+    jmp next
+
+
+f_e:
+    movb $0, (%rdi)
+    ret
