@@ -1,0 +1,34 @@
+#include<stdio.h>
+
+long long int sum3c(unsigned int i1, unsigned int i2, unsigned int i3){
+    return i1 + i2 + i3;
+}
+
+long long int sum3a( unsigned int k1, unsigned int k2, unsigned int k3 );
+
+void main(void){
+    int i;
+
+    for( i = 1; i <= 30; i++ )
+        printf( "Sum(%d) = %ld SumA = %ld\n", i, sum3c(i,10,20), sum3a(i,10,20) );
+}
+
+
+    .type sum3a, @function
+    .global sum3a
+
+    # 1 X mov
+    #2 x ADD
+    # 1 x ret
+
+    # 1 argument w  rdi
+    # 2 w rsi
+    # 3 w rcx
+
+sum3a:
+    mov %rdi, %rax
+    add %rsi, %rax
+    add %rdx, %rax
+
+f_e:
+    ret
