@@ -6,3 +6,46 @@ poprzez wskaznik przekazany w trzecim argumencie zwrocic maksimum wystapień;
 Funckja ma zwrocic wartosc w postaci 64 bitow - kazdy bit okresla wystapienie liczby odpowiadajacej temu bitowi, 
 np jesli byla dwojka w tablicy to ma sie pojawic jedynka na pozycji 3, ostatni bit odpowiada za liczbe 63
 (wynik funkcji - ktore liczby sie pojawily, maks mowi o tym ile razy pojawila sie najczesciej wystepujaca liczba).
+
+#include <stdio.h>
+#include <iostream>
+#include <cstdlib>
+#include <cmath>
+using namespace std;
+
+unsigned int check_tab(int* tab, int n, int* max){
+	for (int i = 0; i < n; i ++){
+		if (tab[i] >= 0 && tab[i] <= 63){
+			max[tab[i]]++;
+		}
+	}
+	int result = 0;
+	for (int i = 0 ; i < 64; i++){
+		if (max[i] != 0){
+			result += pow(2,i);
+		}
+	}
+	return result;
+}
+
+int main(){
+	int n = 4;
+	int tab[n]; 
+	for (int i = 0; i < n; i++){
+		tab[i] = i;
+	}
+	int *max = new int [64];
+	printf("Test 1: %d \n", check_tab(tab,n,max));
+	
+	int *max2 = new int [64];
+	n = 5;
+	 int *tab2 = new int[n];
+	for (int i = 0; i < n; i++){
+		tab2[i] = i;
+	}
+	printf("Test 2: %d \n", check_tab(tab2,n,max2));
+	delete [] tab2;
+	tab2 = 0;
+
+	return 0;
+}
