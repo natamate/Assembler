@@ -1,0 +1,23 @@
+char* encode(char*buf, unsigned int mask, int operation, int character);
+ 
+pierwszy to tablica znaków, drugi to maska gdzie interesuje nas 10 najmlodszych bitow
+(tam gdzie 1 to na tej cyfrze ma zostac wykonana operacja np znak 8 i osmy bit 1 wiec wykonujemy na 8 operacje) ,
+ 3 to jaka operacja miala byc wykonana (0 nie rob nic , 1 usun znaki wedlug maski,
+ 3 zamien na znak podany jako 4 argument i 4 zamien na przeciwna i wsyztsko wedlug maski( np 8 jezeli ma 8bit 1 to zamieniamy na 2)
+                        ___________________________________________________________________
+ 
+była funkcja w c z 4 parametrami: string, maska(int), operacja(int), znak(int)
+ 
+chodziło o to żeby przetworzyć stringa w zależności od operacji i maski.
+w stringu wszystko poza cyframi zawsze pozostawało bez zmian.
+w masce zawsze bierzemy 10 najmłodszych bitów i w zależności od tego czy dany bit jest 1, to na danej cyfrze wykonujemy operacje
+np. 0000000001 - jeśli w stringu pojawi się cyfra 0 to trzeba wykonać odpowiednią operację
+0000000101 - operacje na zerach i dwójkach
+ 
+rodzaje operacji:
+1-nic (zwraca wyjściowy string)
+2-usunięcie (usuwa daną cyfrę ale nie wystarczy wstawić spacje, wtedy trzeba skrócić stringa)
+3-"transpose" - zamienić x na 9-x np. 1 na 8, 0 na 9 itd.
+4- zamienienie cyfry na znak podany w parametrze funkcji
+ 
+wersja na 3 to były operacje 1 i 2, a usunięcie się najtrudniejsze wydaje przez to że trzeba stringa przesuwać
