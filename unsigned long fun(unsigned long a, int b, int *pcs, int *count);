@@ -1,0 +1,26 @@
+unsigned long fun(unsigned long a, int b, int *pcs, int *count);
+
+a = a63 .. a0
+     64 ..  1
+ 
+b = 1: suma xi = ai * (i+1)
+    2: iloczyn xi = ai * (i+1)
+    else : 0
+ 
+pos = max i : ai =/= 0
+ 
+count = sum 1 : ai =/= 0
+        0: else
+ 
+Funkcje dostaje 2 parametry wejściowe, 2 wyjściowe.
+Pierwszy parametr to liczba 64 bitowa, ciąg bitów o wartosci 0 lub 1.
+Jezeli 1 pojawia się na bicie najmniej znaczącym to interesuje nas 1.
+ 
+a - jakie liczby
+b - co z nimi zrobic, jak 1 to zsumowac, jak 2 to przez sb pomnorzyc, jak inna to zwracamy 0 (dla kazdego i suma/ mnozenie -> (ai+(i+1))) xi od 0 do 63, ich suma albo iloczyn
+ 
+pcs -> pozycja ostatniego bitu w liczbie a róznego od 0, przy cyfrze 7 jest to 2 ( maksymalna pozycja na ktorym jedynka sie pojawiła)
+ 
+count -> liczba bitow rownych 1
+ 
+min musi zwrocic count i pos
