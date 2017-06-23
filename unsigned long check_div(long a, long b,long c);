@@ -6,3 +6,36 @@ b)zwraca 0 jeśli a niepodzielne przez b.
 Jeśli c różne od 0 to dzieli a przez liczby z zakresu 1..64 i ustawia odpowiednio bity np. 
 jeśli a podzielne przez 1 to najmłodszy bit równy 1, 
 jeśli a niepodzielne przez 2 to kolejny bit równy 0 itd.
+
+#include <stdio.h>
+#include <cmath>
+
+using namespace std;
+
+unsigned long check_div(long a, long b,long c){
+	if (c == 0){
+		if (b != 0 && a % b == 0 )
+			return 1;
+		else
+			return 0;
+	}else{
+		unsigned long result = 0;
+		int bit = 0;
+		for (int i = 1; i < 65; i++){
+			if (a % i == 0){
+				result += pow(2,bit);
+			}
+			bit++;
+		}
+		return result;
+	}
+}
+
+int main(){
+	printf("Test 1 : %ld \n", check_div(20,2,0));
+	printf("Test 2 : %ld \n", check_div(20,0,0));
+	printf("Test 3 : %ld \n", check_div(20,3,0));
+	printf("Test 4 : %ld \n", check_div(4,2,1));
+	printf("Test 5 : %ld \n", check_div(20,3,1));
+	return 0;
+}
