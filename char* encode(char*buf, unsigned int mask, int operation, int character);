@@ -1,3 +1,5 @@
+
+/**
 char* encode(char*buf, unsigned int mask, int operation, int character);
  
 pierwszy to tablica znaków, drugi to maska gdzie interesuje nas 10 najmlodszych bitow
@@ -21,3 +23,112 @@ rodzaje operacji:
 4- zamienienie cyfry na znak podany w parametrze funkcji
  
 wersja na 3 to były operacje 1 i 2, a usunięcie się najtrudniejsze wydaje przez to że trzeba stringa przesuwać
+
+    Contact GitHub API Training Shop Blog About 
+*/
+
+#include <stdio.h>
+#include <string.h>
+#include <iostream>
+using namespace std;
+
+char* toBin(int number){
+	string result = "";
+	while (number > 0){
+		if (number%2 == 0)
+			result += '0';
+		else result += '1';
+
+		number = number / 2;
+	}
+
+char *cstr = new char[result.length() + 1];
+strcpy(cstr, result.c_str());
+
+	return cstr;
+}
+
+
+char* encode(char*buf, unsigned int mask, int operation, int character){
+	if (operation == 1){
+		return buf;
+	}
+	cout << "something"<<endl;
+	char* maskB = toBin(mask);
+	cout << maskB << endl;
+	int tmp = 0;
+	string tmpS = "";
+	bool add = true;
+	if (operation == 2){
+		for (int i = 0; i < strlen(buf); i++){
+			if (buf[i] > 47 && buf[i] < 58){
+				tmp = buf[i] - 48;
+				for (int j = 0; j < strlen(maskB); j++){
+					if (j == tmp && maskB[j] != '0'){
+						tmpS += "";
+						add = false;
+						break;
+					}
+				}	
+			}
+			if (add == true)
+				tmpS += buf[i];
+			else add = true;
+		}
+	}
+	if (operation == 3){
+		for (int i = 0; i < strlen(buf); i++){
+			if (buf[i] > 47 && buf[i] < 58){
+				tmp = buf[i] - 48;
+				for (int j = 0; j < strlen(maskB); j++){
+					if (j == tmp && maskB[j] != '0'){
+						cout << tmp << endl;
+						tmpS += ('9' - buf[i]) + "";
+						cout << tmpS << endl;
+						add = false;
+						break;
+					}
+				}	
+			}
+			if (add == true)
+				tmpS += buf[i];
+			else add = true;
+		}
+	}
+	if (operation == 4){
+		for (int i = 0; i < strlen(buf); i++){
+			if (buf[i] > 47 && buf[i] < 58){
+				tmp = buf[i] - 48;
+				for (int j = 0; j < strlen(maskB); j++){
+					if (j == tmp && maskB[j] != '0'){
+						tmpS += character;
+						add = false;
+						break;
+					}
+				}	
+			}
+			if (add == true)
+				tmpS += buf[i];
+			else add = true;
+		}
+	}
+
+	char *cstr = new char[tmpS.length() + 1];
+	strcpy(cstr, tmpS.c_str());
+
+	return cstr;
+}
+
+
+int main(){
+	char* buf = "0123456789";
+	char* buf2 = "a232e5656";
+	
+	printf("Test 1: % s \n", encode(buf, 7, 1, 'a'));
+	printf("Test 2: % s \n", encode(buf, 7, 2, 'a'));
+	printf("Test 3: % s \n", encode(buf, 7, 3, 'a'));
+	printf("Test 4: % s \n", encode(buf, 7, 4, 'a'));
+	printf("Test 5: %s \n", encode(buf,4,2,'a'));
+	printf("Test 6: %s \n", encode(buf2,11,2,'a'));
+	return 0;
+}
